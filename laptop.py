@@ -52,6 +52,17 @@ class Laptop:
         self.graphic_card = graphic_card
         self.os = os
 
+    def get_values(self):
+        return (self.price,
+                self.link,
+                self.screen,
+                self.procesor,
+                self.ram,
+                self.disc,
+                self.graphic_card,
+                self.os
+                )
+
     def __str__(self) -> str:
         return f" Price : {self.price}\n Link  : {self.link}\n \
 Screen: {self.screen}\n \

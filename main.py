@@ -1,7 +1,7 @@
 import sys
 from laptop import LaptopFabric
 from func_lib import *
-
+import db_module
 
 def main(argc: int, argv: list):
     if argc < 3:
@@ -23,6 +23,8 @@ def main(argc: int, argv: list):
                                 config[6],  # disc name
                                 config[7],  # GPU name
                                 config[8])  # OS name
+    db = db_module.DB_Adapter()
+    db.connect("database.db")
     lapt_list = []
     for index in range(1, NUMBER_OF_PAGES):
         soup = preparing_soup(URL + PAGE_SUFFIX + str(index),
@@ -51,12 +53,11 @@ def main(argc: int, argv: list):
                 lapt_creator.set_value(
                     name_attr.get_text().strip(), value_attr.get_text().strip())
 
-            lapt_list.append(lapt_creator.create_laptop_object())
+            lapt = lapt_creator.create_laptop_object()
             lapt_creator.initialization()
+            db.statement("INSERT INTO laptops VALUES (?,?,?,?,?,?,?,?)", lapt.get_values())
 
-    for lapt in lapt_list:
-        print(lapt)
-
+    db.commit()
     return 0
 
 
