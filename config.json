@@ -1,9 +1,9 @@
 {
+    "log_path" : "/home/mariusz/workspace/laptop_advisor/git_/advisor_web_scrapping/logs/",
     "page_URL" : "https://www.mediaexpert.pl/komputery-i-tablety/laptopy-i-ultrabooki/laptopy",
     "short_page_URL" : "https://www.mediaexpert.pl",
     "page_suffix" : "?page=",
     "db_path" : "/home/mariusz/workspace/laptop_advisor/git_/advisor_web_scrapping/database.db",
-    "log_path" : "/home/mariusz/workspace/laptop_advisor/git_/advisor_web_scrapping/scrapper_log.log",
     "screen_atr" : "Ekran:",
     "CPU_atr" : "Procesor:",
     "RAM_atr" : "Wielkość pamięci RAM [GB]:",

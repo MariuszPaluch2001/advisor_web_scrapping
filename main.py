@@ -9,17 +9,18 @@ def main(argc: int, argv: list):
 
 
     if argc < 3:
-        logging.critical(f"Too few arguments. Numbers of args {argc}, should be 3.")
         return 1
 
     filename = argv[1]
     try:
         with open(filename) as f:
             config = read_config(f)
-    except FileNotFoundError as e:
-        logging.exception(f"Couldn't open a file {filename}")
+    except FileNotFoundError :
         return 2
-        
+
+    log_path = config["log_path"]
+    logging.basicConfig(level=logging.INFO, filename=f"{log_path}scrapper_log_{datetime.datetime.now()}.log",
+        format="%(asctime)s = %(levelname)s - %(message)s")
 
     NUMBER_OF_PAGES = int(argv[2])
     try:
@@ -93,6 +94,4 @@ def main(argc: int, argv: list):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, filename=f"logs/scrapper_log_{datetime.datetime.now()}.log",
-        format="%(asctime)s = %(levelname)s - %(message)s")
     main(len(sys.argv), sys.argv)
