@@ -8,29 +8,27 @@ class DB_Adapter:
     def connect(self, db_name : str):
         self._db_objet = sqlite3.connect(db_name)
 
-    def statement(self, statement : str ,parameters = None):
+    def statement_without_param(self, statement : str):
         cur = self._db_objet.cursor()
-        if parameters is None:
-            try:
-                cur.execute(statement)
-            except OperationalError as e:
-                print(e)
-        elif type(parameters) == tuple:
-            try:
-                cur.execute(statement, parameters)
-            except OperationalError as e:
-                print(e)
-        elif type(parameters) == list :
-            try:
-                cur.executemany(statement, parameters)
-            except ProgrammingError as e:
-                print(e)
-
-        
+        cur.execute(statement)
+        res = cur.fetchall()
+        cur.close()
+        return res
+    
+    def statement_with_param(self, statement : str ,parameter):
+        cur = self._db_objet.cursor()
+        cur.execute(statement, parameter)
         res = cur.fetchall()
         cur.close()
         return res
 
+    def statement_with_parameters(self, statement : str ,parameters):
+        cur = self._db_objet.cursor()
+        cur.executemany(statement, parameters)
+        res = cur.fetchall()
+        cur.close()
+        return res
+    
     def commit(self):
         self._db_objet.commit()
     
@@ -44,9 +42,9 @@ if __name__ == "__main__":
     db = DB_Adapter()
     db.connect("database.db")
 
-    db.statement("""
+    db.statement_without_param("""
         CREATE TABLE laptops
-               (price real, link text, screen text, CPU text, ram text, disc text, GPU text, OS text)
+               (price real, link text, screen text, CPU text, ram text, disc text, GPU text, OS text, time text)
     """)
 
 

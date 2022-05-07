@@ -1,6 +1,8 @@
 from typing import IO, Dict
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
+import json
+
 
 def make_request(url: str, hdrs: Dict[str, str]) -> Request:
     return Request(url, headers=hdrs)
@@ -18,4 +20,4 @@ def preparing_soup(url: str, headers: Dict[str, str], parser_type: str) -> Beaut
 
 
 def read_config(file: IO[str]):
-    return [line.rstrip() for line in file.readlines()]
+    return json.load(file)
