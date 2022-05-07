@@ -1,0 +1,13 @@
+{
+    "page_URL" : "https://www.mediaexpert.pl/komputery-i-tablety/laptopy-i-ultrabooki/laptopy",
+    "short_page_URL" : "https://www.mediaexpert.pl",
+    "page_suffix" : "?page=",
+    "db_path" : "/home/mariusz/workspace/laptop_advisor/git_/advisor_web_scrapping/database.db",
+    "screen_atr" : "Ekran:",
+    "CPU_atr" : "Procesor:",
+    "RAM_atr" : "Wielkość pamięci RAM [GB]:",
+    "disc_atr" : "Dysk:",
+    "GPU_atr" : "Karta graficzna:",
+    "OS_atr" : "System operacyjny:" 
+
+}

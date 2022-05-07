@@ -11,21 +11,21 @@ def main(argc: int, argv: list):
     with open(filename) as f:
         config = read_config(f)
 
+
     NUMBER_OF_PAGES = int(argv[2])
-    URL = config[0]
-    SHORT_URL = config[1]
-    PAGE_SUFFIX = config[2]
+    URL = config["page_URL"]
+    SHORT_URL = config["short_page_URL"]
+    PAGE_SUFFIX = config["page_suffix"]
     lapt_creator = LaptopFabric("price",
                                 "link",
-                                config[3],  # screen name
-                                config[4],  # processor name
-                                config[5],  # RAM name
-                                config[6],  # disc name
-                                config[7],  # GPU name
-                                config[8])  # OS name
+                                config["screen_atr"],
+                                config["CPU_atr"],  
+                                config["RAM_atr"],  
+                                config["disc_atr"],  
+                                config["GPU_atr"],  
+                                config["OS_atr"])  
     db = db_module.DB_Adapter()
-    db.connect("database.db")
-    lapt_list = []
+    db.connect(config["db_path"]) #@to do - don't use entire path 
     for index in range(1, NUMBER_OF_PAGES):
         soup = preparing_soup(URL + PAGE_SUFFIX + str(index),
                               {'User-Agent': 'Mozilla/5.0'}, "html.parser")
@@ -55,7 +55,7 @@ def main(argc: int, argv: list):
 
             lapt = lapt_creator.create_laptop_object()
             lapt_creator.initialization()
-            db.statement("INSERT INTO laptops VALUES (?,?,?,?,?,?,?,?)", lapt.get_values())
+            db.statement("INSERT INTO laptops VALUES (?,?,?,?,?,?,?,?, datetime('now'))", lapt.get_values())
 
     db.commit()
     return 0
